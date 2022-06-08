@@ -1,0 +1,43 @@
+<% if @book.errors.any? %>
+  <h4> The following errors prevented the Book ! </h4>
+  <ul>
+    <% @book.errors.full_messages.each do |msg| %>
+      <li class = "text-danger"> <%= msg %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with(model:@book, local: true, data: {turbo: false}) do |f| %>
+
+  <div class = "field form-group" >
+    <strong><%= f.label :category %></strong>
+    <%= f.select :category_id, Category.all.map { |c| [c.category_name, c.id]}, class:"form-control" %>
+  </div><br>
+
+  <div class = "field form-group" >
+    <strong><%= f.label :book_title %></strong>
+    <%= f.text_field :book_title, class:"form-control" %>
+  </div><br>
+
+  <div class = "field form-group" >
+    <strong><%= f.label :book_description %></strong>
+    <%= f.text_field :book_description, class:"form-control" %>
+  </div><br>
+
+  <div class = "field form-group" >
+    <strong><%= f.label :author %></strong>
+    <%= f.text_field :author, class:"form-control" %>
+  </div><br>
+
+  <div class="text-center">
+    <div class = "action" >
+      <%= f.button :submit, class:"btn btn-success" %>
+    </div>
+  </div><br>
+
+  <div class="text-center">
+    <div class = "field form-group" >
+      <%= link_to 'Dismiss', { controller: 'books', action: 'index'}, class: "btn btn-danger" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<h2><%= @book.book_title %></h2>
+<h3><%= @book.author %></h3>
+<h4><%= @book.category.category_name %></h4>
+<p><%= @book.book_description %></p>
+
+<% if user_signed_in? %>
+  <% if @book.user_id == current_user.id %>
+    <%= link_to 'Edit', edit_book_path(@book), class: "text-decoration-none btn btn-dark" %>
+    <%= button_to 'Delete', book_path(@book), method: :delete, data: { confirm: "Are you sure you want to delete?" }, class: "btn btn-danger" %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Go Back', { controller: 'books', action: 'index'}, class: "btn btn-primary" %>
